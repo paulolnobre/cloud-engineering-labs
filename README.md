@@ -1,34 +1,120 @@
 # cloud-python
 
-Python scripts for AWS Cloud Engineering and infrastructure automation.
+Structured Python learning repository focused on Cloud Engineering, AWS automation, and infrastructure tooling.
 
-Built as a learning portfolio targeting AWS Solutions Architect Associate (SAA-C03) and entry-level Cloud Engineering roles.
+This repository documents a progressive journey from Python fundamentals to real-world cloud automation and AWS-based development.
 
-## Structure
+The projects are organized into stages covering:
+- Python scripting fundamentals
+- Infrastructure-oriented utilities
+- AWS automation concepts
+- Error handling and validation
+- JSON and file processing
+- Logging and operational tooling
+- Future boto3 and serverless workflows
 
-| Folder | Concept | Description |
-|--------|---------|-------------|
-| aws_naming | Functions | Reusable helpers for AWS resource naming conventions |
-| ec2-audit | Lists & Loops | Filtering and auditing EC2 instances by state and type |
-| ec2-cost-report | Dictionaries | Cost estimation based on EC2 instance types |
-| error_handler | Error Handling | Simulating and handling AWS API errors with try/except |
-| file-io | File I/O | Reading JSON configs and generating EC2 instance reports |
+---
 
-## Stack
+## Repository Structure
+
+```text
+cloud-python/
+│
+├── stage_1/
+│   ├── aws_naming/
+│   ├── ec2-audit/
+│   ├── ec2-cost-report/
+│   ├── ec2-tag-audit/
+│   ├── env_inspector/
+│   ├── error_handler/
+│   └── file-io/
+│
+├── requirements.txt
+└── README.md
+```
+
+---
+
+## Stage 1 — Core Python for Cloud Engineering
+
+Stage 1 focuses on building strong Python foundations applied to cloud and infrastructure scenarios.
+
+| Project | Concepts Practiced |
+|---|---|
+| `aws_naming` | Functions, reusable naming utilities |
+| `ec2-audit` | Lists, loops, EC2 filtering |
+| `ec2-cost-report` | Dictionaries, cost calculation |
+| `ec2-tag-audit` | Tag validation and infrastructure auditing |
+| `env_inspector` | Environment variables, logging, JSON output |
+| `error_handler` | Exception handling and simulated AWS API errors |
+| `file-io` | JSON parsing and report generation |
+
+---
+
+## Technologies Used
 
 - Python 3.13
-- AWS boto3 (Stage 2+)
+- Python Virtual Environments (`venv`)
+- Git & GitHub
+- AWS CLI concepts
 - AWS Free Tier
 
-## Goal
+---
 
-Each folder is a standalone script covering a core Python concept applied to a real AWS use case.
-The progression follows a structured path from Python fundamentals to full AWS automation and serverless deployment.
+## Engineering Concepts Practiced
+
+- Modular code organization
+- Utility function design
+- Logging
+- Exception handling
+- Type hints
+- Input validation
+- JSON serialization
+- Environment variable management
+- Infrastructure-oriented scripting
+- Git branching and version control workflows
+
+---
 
 ## Roadmap
 
-- Stage 1 — Core Python for Cloud Scripting (in progress)
-- Stage 2 — AWS Automation with boto3
-- Stage 3 — Serverless and Lambda
-- Stage 4 — AI Agents on AWS
-- Stage 5 — CI/CD and Infrastructure as Code
+### Stage 1 — Core Python for Cloud Engineering
+- Python fundamentals
+- Infrastructure scripting
+- File handling
+- Logging and validation
+
+### Stage 2 — AWS Automation with boto3
+- EC2 automation
+- S3 operations
+- IAM interaction
+- CloudWatch integration
+
+### Stage 3 — Serverless and Lambda
+- AWS Lambda
+- Event-driven workflows
+- API Gateway
+- Scheduled automation
+
+### Stage 4 — AI Agents on AWS
+- AI automation workflows
+- AWS-hosted agents
+- LLM integrations
+- Event orchestration
+
+### Stage 5 — CI/CD and Infrastructure as Code
+- GitHub Actions
+- Terraform
+- Docker
+- Deployment pipelines
+
+---
+
+## Purpose
+
+This repository was created as a practical learning portfolio focused on:
+- Cloud Engineering
+- AWS Solutions Architecture
+- Python automation
+- Infrastructure tooling
+- Backend operational scripting
