@@ -2,10 +2,7 @@ import logging
 from datetime import datetime
 
 
-logging.basicConfig(
-    level=logging.INFO,
-    format="%(asctime)s | %(levelname)s | %(message)s"
-)
+logger = logging.getLogger(__name__)
 
 BYTE_CONVERSION = 1024
 
@@ -28,7 +25,7 @@ def get_resource_name(service: str, env: str, region: str) -> str:
 
     resource_name = f"{service}-{env}-{region}"
 
-    logging.info(f"Generated resource name: {resource_name}")
+    logger.info(f"Generated resource name: {resource_name}")
 
     return resource_name
 
@@ -55,13 +52,11 @@ def format_s3_size(size_bytes: int) -> str:
         if size < BYTE_CONVERSION or unit == units[-1]:
             formatted_size = f"{round(size, 2)}{unit}"
 
-            logging.info(f"Formatted size: {formatted_size}")
+            logger.info(f"Formatted size: {formatted_size}")
 
             return formatted_size
 
         size /= BYTE_CONVERSION
-
-    raise RuntimeError("Failed to format S3 object size.")
 
 
 def get_time_stamp() -> str:
@@ -74,12 +69,17 @@ def get_time_stamp() -> str:
 
     timestamp = datetime.now().strftime("%Y-%m-%d")
 
-    logging.info(f"Generated timestamp: {timestamp}")
+    logger.info(f"Generated timestamp: {timestamp}")
 
     return timestamp
 
 
 if __name__ == "__main__":
+
+    logging.basicConfig(
+        level=logging.INFO,
+        format="%(asctime)s | %(levelname)s | %(message)s"
+    )
 
     try:
         print(get_resource_name("s3", "prod", "us-east-1"))
@@ -87,10 +87,10 @@ if __name__ == "__main__":
         print(get_time_stamp())
 
     except ValueError as error:
-        logging.error(f"Validation error: {error}")
+        logger.error(f"Validation error: {error}")
 
     except Exception as error:
-        logging.error(f"Unexpected error: {error}")
+        logger.error(f"Unexpected error: {error}")
 
 
 
