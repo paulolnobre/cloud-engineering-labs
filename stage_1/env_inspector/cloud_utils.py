@@ -48,8 +48,8 @@ def format_s3_size(size_bytes: int) -> str:
 
     size = float(size_bytes)
 
-    for unit in units:
-        if size < BYTE_CONVERSION or unit == units[-1]:
+    for unit in units[:-1]:
+        if size < BYTE_CONVERSION:
             formatted_size = f"{round(size, 2)}{unit}"
 
             logger.info(f"Formatted size: {formatted_size}")
@@ -57,6 +57,12 @@ def format_s3_size(size_bytes: int) -> str:
             return formatted_size
 
         size /= BYTE_CONVERSION
+
+    formatted_size = f"{round(size, 2)}{units[-1]}"
+
+    logger.info(f"Formatted size: {formatted_size}")
+
+    return formatted_size
 
 
 def get_time_stamp() -> str:
