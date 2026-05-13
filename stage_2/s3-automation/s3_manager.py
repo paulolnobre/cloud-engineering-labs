@@ -1,6 +1,7 @@
 import json
-import boto3
 import logging
+
+import boto3
 from botocore.exceptions import ClientError
 
 logging.basicConfig(level=logging.INFO, format="%(levelname)s - %(message)s")
@@ -181,6 +182,8 @@ if __name__ == "__main__":
     }
     set_bucket_policy(BUCKET, policy)
     set_lifecycle_rule(BUCKET, rule_id="expire-reports", prefix="reports/", expiration_days=90)
+
+  
 
 
 
