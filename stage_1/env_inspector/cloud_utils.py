@@ -25,7 +25,7 @@ def get_resource_name(service: str, env: str, region: str) -> str:
 
     resource_name = f"{service}-{env}-{region}"
 
-    logger.info(f"Generated resource name: {resource_name}")
+    logger.info("Generated resource name: %s", resource_name)
 
     return resource_name
 
@@ -52,7 +52,7 @@ def format_s3_size(size_bytes: int) -> str:
         if size < BYTE_CONVERSION:
             formatted_size = f"{round(size, 2)}{unit}"
 
-            logger.info(f"Formatted size: {formatted_size}")
+            logger.info("Formatted size: %s", formatted_size)
 
             return formatted_size
 
@@ -60,7 +60,7 @@ def format_s3_size(size_bytes: int) -> str:
 
     formatted_size = f"{round(size, 2)}{units[-1]}"
 
-    logger.info(f"Formatted size: {formatted_size}")
+    logger.info("Formatted size: %s", formatted_size)
 
     return formatted_size
 
@@ -75,7 +75,7 @@ def get_time_stamp() -> str:
 
     timestamp = datetime.now().strftime("%Y-%m-%d")
 
-    logger.info(f"Generated timestamp: {timestamp}")
+    logger.info("Generated timestamp: %s", timestamp)
 
     return timestamp
 
@@ -93,10 +93,10 @@ if __name__ == "__main__":
         print(get_time_stamp())
 
     except ValueError as error:
-        logger.error(f"Validation error: {error}")
+        logger.error("Validation error: %s", error)
 
     except Exception as error:
-        logger.error(f"Unexpected error: {error}")
+        logger.error("Unexpected error: %s", error)
 
 
 
