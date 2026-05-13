@@ -34,7 +34,7 @@ if __name__ == "__main__":
         print(f"Account: {identity['Account']}")
         print(f"User ARN: {identity['Arn']}")
         print(f"User ID: {identity['UserId']}")
-        session = boto3.session.Session()
+        session = boto3.Session()
         print(f"Region: {session.region_name}")
     else:
         print('Failed to retrieve identity')
