@@ -1,3 +1,4 @@
+import json
 import boto3
 import logging
 from botocore.exceptions import ClientError
@@ -93,11 +94,59 @@ def delete_object(bucket_name: str, key: str) -> bool:
     except ClientError as e:
         logger.error("Delete failed: %s", e.response["Error"]["Message"])
         return False
+    
+
+def set_bucket_policy(bucket_name: str, policy: dict) -> bool:
+    """Attach a JSON policy document to an S3 bucket."""
+    s3 = boto3.client("s3")
+
+    try:
+        s3.put_bucket_policy(Bucket=bucket_name, Policy=json.dumps(policy))
+        logger.info("Policies applied to bucket: %s", bucket_name)
+        return True
+    except ClientError as e:
+        logger.error("Policy failed: %s", e.response["Error"]["Message"])
+        return False
+
+
+def set_lifecycle_rule(bucket_name: str, rule_id: str, prefix: str, expiration_days: int) -> bool:
+    """
+    Set a lifecycle rule that expires objects after a given number of days.
+    prefix filters which objects the rule applies to.
+    """
+    s3 = boto3.client("s3")
+
+    lifecycle_policy = {
+        "Rules": [
+            {
+                "ID": rule_id,
+                "Filter": {"Prefix": prefix},
+                "Status": "Enabled",
+                "Expiration": {"Days": expiration_days}
+            }
+        ]
+    }
+
+    try:
+        s3.put_bucket_lifecycle_configuration(
+            Bucket=bucket_name,
+            LifecycleConfiguration=lifecycle_policy
+        )
+        logger.info(
+            "Lifecycle rule '%s' set: delete after %d days (prefix: '%s')",
+            rule_id, expiration_days, prefix
+        )
+        return True
+
+    except ClientError as e:
+        logger.error("Lifecycle failed: %s", e.response["Error"]["Message"])
+        return False
 
 
 if __name__ == "__main__":
     BUCKET = "paulo-dev-s3-automation"
     REGION = "us-east-1"
+
 
     create_bucket(BUCKET, REGION)
 
@@ -116,5 +165,23 @@ if __name__ == "__main__":
 
     remaining = list_objects(BUCKET, prefix="reports/")
     print(f"Objects remaining: {len(remaining)}")
-        
+
+    policy = {
+        "Version": "2012-10-17",
+        "Statement": [
+            {
+                "Sid": "DenyHTTP",
+                "Effect": "Deny",
+                "Principal": "*",
+                "Action": "s3:*",
+                "Resource": [f"arn:aws:s3:::{BUCKET}", f"arn:aws:s3:::{BUCKET}/*"],
+                "Condition": {"Bool": {"aws:SecureTransport": "false"}}
+            }
+        ]
+    }
+    set_bucket_policy(BUCKET, policy)
+    set_lifecycle_rule(BUCKET, rule_id="expire-reports", prefix="reports/", expiration_days=90)
+
+
+
 
