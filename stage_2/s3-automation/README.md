@@ -43,6 +43,14 @@ Utility module for common Amazon S3 operations: creating buckets, uploading, lis
 
 ---
 
+## Billing note
+
+S3 Free Tier covers 5 GB storage, 20,000 GET requests, and 2,000 PUT requests per month.
+This script operates well within free tier limits. Delete the bucket after testing to avoid
+residual storage charges.
+
+---
+
 ## Usage
 
 ```bash
@@ -65,7 +73,7 @@ Content: January AWS cost report - $142.30
 INFO - Deleted: s3://paulo-dev-s3-automation/reports/jan.txt
 INFO - Found 1 object(s) in s3://paulo-dev-s3-automation/reports/
 Objects remaining: 1
-INFO - Policies applied to bucket: paulo-dev-s3-automation
+INFO - Policy applied to bucket: paulo-dev-s3-automation
 INFO - Lifecycle rule 'expire-reports' set: delete after 90 days (prefix: 'reports/')
 ```
 
