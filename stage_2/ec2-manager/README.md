@@ -1,25 +1,46 @@
 # EC2 Manager
 
-A Python script for managing EC2 instances using `boto3`. Provides utilities to query instances by state, stop instances, and apply tags.
+Utilities for managing the full lifecycle of EC2 instances using `boto3`. Split across two modules:
 
-## Functions
+- **`ec2_manager.py`** — query, stop, and tag existing instances
+- **`ec2_lifecycle.py`** — launch, wait, log, stop, and optionally terminate instances
 
-### `get_instances_by_state(state, client)`
-Returns all EC2 instances matching a given state (e.g. `"running"`, `"stopped"`).
+Shared helpers live in `../utils/ec2_utils.py`.
 
-### `stop_instance(instance_id, client)`
-Stops a single EC2 instance and logs the previous/current state transition.
+## Modules
 
-### `tag_instances(instance_ids, tags, client)`
-Applies a dictionary of tags to one or more EC2 instances.
+### `ec2_manager.py`
 
-## Usage
+| Function | Description |
+|---|---|
+| `get_instances_by_state(state, client)` | Returns all instances matching a given state (`"running"`, `"stopped"`, etc.) |
+| `stop_instance(instance_id, client)` | Stops an instance and logs the state transition |
+| `tag_instances(instance_ids, tags, client)` | Applies a dict of tags to one or more instances |
 
 ```bash
 python ec2_manager.py
 ```
 
-The `main()` function connects to `us-east-1`, lists all running instances, logs their IDs and Name tags, and stops the first running instance found (for testing purposes).
+### `ec2_lifecycle.py`
+
+Full instance lifecycle in sequence:
+
+| Function | Description |
+|---|---|
+| `launch_instance(ec2_client)` | Launches a `t2.micro` with tags and returns its ID |
+| `log_instance_details(ec2_client, instance_id)` | Logs ID, public IP, and state |
+| `terminate_with_dry_run(ec2_client, instance_id)` | Terminates using a dry-run permission pre-check |
+
+**Config flags** (top of file):
+
+| Flag | Default | Description |
+|---|---|---|
+| `REGION` | `"us-east-1"` | Target AWS region |
+| `TERMINATE` | `False` | Set to `True` to terminate after stopping |
+
+```bash
+python ec2_lifecycle.py
+```
 
 ## Requirements
 
@@ -29,4 +50,5 @@ The `main()` function connects to `us-east-1`, lists all running instances, logs
 
 ## Notes
 
-- The stop operation in `main()` is marked **TEST ONLY** — it stops the first running instance found. Remove or guard it before using in production.
+- `KeyName`, `SecurityGroupIds`, and `SubnetId` in `ec2_lifecycle.py` are placeholders — replace with real values before running.
+- `TERMINATE = False` by default — billing-safe until explicitly enabled.
