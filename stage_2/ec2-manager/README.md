@@ -1,54 +1,61 @@
-# EC2 Manager
+# ec2-manager
 
-Utilities for managing the full lifecycle of EC2 instances using `boto3`. Split across two modules:
+Modules for managing and auditing EC2 instances using `boto3`. Shared helpers live in `../utils/`.
 
-- **`ec2_manager.py`** — query, stop, and tag existing instances
-- **`ec2_lifecycle.py`** — launch, wait, log, stop, and optionally terminate instances
-
-Shared helpers live in `../utils/ec2_utils.py`.
-
-## Modules
+## Files
 
 ### `ec2_manager.py`
-
-| Function | Description |
-|---|---|
-| `get_instances_by_state(state, client)` | Returns all instances matching a given state (`"running"`, `"stopped"`, etc.) |
-| `stop_instance(instance_id, client)` | Stops an instance and logs the state transition |
-| `tag_instances(instance_ids, tags, client)` | Applies a dict of tags to one or more instances |
+Queries running instances, logs their ID and Name tag, and stops the first one found (test mode).
 
 ```bash
 python ec2_manager.py
 ```
 
-### `ec2_lifecycle.py`
+| Function | Description |
+|---|---|
+| `get_instances_by_state(state, client)` | Returns all instances matching a given state |
+| `stop_instance(instance_id, client)` | Stops an instance and logs the state transition |
 
-Full instance lifecycle in sequence:
+---
+
+### `ec2_lifecycle.py`
+Full instance lifecycle: launch → wait → log → stop → terminate (optional).
+
+```bash
+python ec2_lifecycle.py
+```
 
 | Function | Description |
 |---|---|
-| `launch_instance(ec2_client)` | Launches a `t2.micro` with tags and returns its ID |
-| `log_instance_details(ec2_client, instance_id)` | Logs ID, public IP, and state |
+| `launch_instance(ec2_client)` | Launches a `t2.micro` with tags, returns instance ID |
+| `log_instance_details(ec2_client, instance_id)` | Logs ID, public IP, and current state |
 | `terminate_with_dry_run(ec2_client, instance_id)` | Terminates using a dry-run permission pre-check |
 
-**Config flags** (top of file):
+**Config flags:**
 
 | Flag | Default | Description |
 |---|---|---|
 | `REGION` | `"us-east-1"` | Target AWS region |
 | `TERMINATE` | `False` | Set to `True` to terminate after stopping |
 
+> `KeyName`, `SecurityGroupIds`, and `SubnetId` are placeholders — replace with real values before running.
+
+---
+
+### `ec2_auditor.py`
+Audits all running and stopped instances, flagging any missing `Name` or `Environment` tags.
+
 ```bash
-python ec2_lifecycle.py
+python ec2_auditor.py
 ```
+
+| Function | Description |
+|---|---|
+| `get_ec2_client()` | Creates and returns a boto3 EC2 client |
+| `audit_instances(instances, state)` | Logs instance details and warns on missing tags |
 
 ## Requirements
 
 - Python 3.10+
 - `boto3`
 - AWS credentials configured (via `~/.aws/credentials`, environment variables, or IAM role)
-
-## Notes
-
-- `KeyName`, `SecurityGroupIds`, and `SubnetId` in `ec2_lifecycle.py` are placeholders — replace with real values before running.
-- `TERMINATE = False` by default — billing-safe until explicitly enabled.

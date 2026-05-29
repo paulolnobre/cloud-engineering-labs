@@ -1,13 +1,11 @@
-import logging
-
 import boto3
 from botocore.client import BaseClient
 from botocore.exceptions import ClientError
 
 from utils.ec2_utils import stop_instance
+from utils.logging_config import get_logger
 
-logging.basicConfig(level=logging.INFO, format="%(levelname)s - %(message)s")
-logger = logging.getLogger(__name__)
+logger = get_logger(__name__)
 
 AMI_BY_REGION: dict[str, str] = {
     "us-east-1": "ami-0c55b159cbfafe1f0",

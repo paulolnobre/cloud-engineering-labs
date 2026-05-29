@@ -1,11 +1,11 @@
 import json
-import logging
 
 import boto3
 from botocore.exceptions import ClientError
 
-logging.basicConfig(level=logging.INFO, format="%(levelname)s - %(message)s")
-logger = logging.getLogger(__name__)
+from utils.logging_config import get_logger
+
+logger = get_logger(__name__)
 
 
 def create_bucket(bucket_name: str, region: str = "us-east-1") -> bool:

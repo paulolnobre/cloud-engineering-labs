@@ -1,13 +1,11 @@
-import logging
-
 import boto3
 from botocore.client import BaseClient
 from botocore.exceptions import ClientError
 
-from utils.ec2_utils import get_instances_by_state, stop_instance, tag_instances
+from utils.ec2_utils import get_instances_by_state, stop_instance
+from utils.logging_config import get_logger
 
-logging.basicConfig(level=logging.INFO, format="%(levelname)s - %(message)s")
-logger = logging.getLogger(__name__)
+logger = get_logger(__name__)
 
 
 def main() -> None:

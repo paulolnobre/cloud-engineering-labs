@@ -1,9 +1,15 @@
+import sys
+import os
+
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), ".."))
+
 import boto3
 from botocore.exceptions import NoCredentialsError, ClientError
-import logging
 
+from utils.logging_config import get_logger
 
-logging.basicConfig(level=logging.INFO, format="%(levelname)s - %(message)s")
+logger = get_logger(__name__)
+
 
 def get_identity():
     """
@@ -22,10 +28,10 @@ def get_identity():
         response = sts.get_caller_identity()
         return response
     except NoCredentialsError:
-        logging.error("No AWS credentials found.", exc_info=True)
+        logger.error("No AWS credentials found.", exc_info=True)
         return None
-    except ClientError as e: 
-        logging.error("AWS ClientError: %s", e, exc_info=True) 
+    except ClientError as e:
+        logger.error("AWS ClientError: %s", e, exc_info=True)
         return None
     
 if __name__ == "__main__":
