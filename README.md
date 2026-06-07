@@ -29,6 +29,13 @@ cloud-python/
 │   ├── error_handler/
 │   └── file-io/
 │
+├── stage_2/
+│   ├── boto3_setup/
+│   ├── ec2-manager/
+│   ├── s3-automation/
+│   ├── security-groups/
+│   └── utils/
+│
 ├── requirements.txt
 └── README.md
 ```
@@ -48,6 +55,20 @@ Stage 1 focuses on building strong Python foundations applied to cloud and infra
 | `env_inspector` | Environment variables, logging, JSON output |
 | `error_handler` | Exception handling and simulated AWS API errors |
 | `file-io` | JSON parsing and report generation |
+
+---
+
+## Stage 2 — AWS Automation with boto3
+
+Stage 2 focuses on real AWS interactions using the boto3 SDK, EC2 lifecycle management, S3 operations, and security group auditing.
+
+| Project | Concepts Practiced |
+|---|---|
+| `boto3_setup` | boto3 installation and connectivity verification |
+| `ec2-manager` | EC2 lifecycle management, auditing, and automation |
+| `s3-automation` | S3 bucket operations and file management |
+| `security-groups` | Security group auditing and compliance checks |
+| `utils` | Shared EC2 utilities and logging configuration |
 
 ---
 
