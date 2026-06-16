@@ -32,8 +32,11 @@ cloud-python/
 ├── stage_2/
 │   ├── boto3_setup/
 │   ├── ec2-manager/
+│   ├── iam-automation/
 │   ├── s3-automation/
+│   ├── secret-manager/
 │   ├── security-groups/
+│   ├── tagging-cleanup/
 │   └── utils/
 │
 ├── requirements.txt
@@ -66,8 +69,11 @@ Stage 2 focuses on real AWS interactions using the boto3 SDK, EC2 lifecycle mana
 |---|---|
 | `boto3_setup` | boto3 installation and connectivity verification |
 | `ec2-manager` | EC2 lifecycle management, auditing, and automation |
+| `iam-automation` | IAM user and policy lifecycle (create, attach, detach, delete) |
 | `s3-automation` | S3 bucket operations and file management |
-| `security-groups` | Security group auditing and compliance checks |
+| `secret-manager` | Secrets Manager CRUD — create, retrieve, update, and delete secrets |
+| `security-groups` | Security group auditing and open CIDR detection |
+| `tagging-cleanup` | Tag compliance auditing and automated termination of long-stopped dev instances |
 | `utils` | Shared EC2 utilities and logging configuration |
 
 ---
@@ -108,8 +114,10 @@ Stage 2 focuses on real AWS interactions using the boto3 SDK, EC2 lifecycle mana
 ### Stage 2 — AWS Automation with boto3
 - EC2 automation
 - S3 operations
-- IAM interaction
-- CloudWatch integration
+- IAM user and policy management
+- Secrets Manager lifecycle
+- Tag compliance auditing and automated cleanup
+- Security group auditing
 
 ### Stage 3 — Serverless and Lambda
 - AWS Lambda
