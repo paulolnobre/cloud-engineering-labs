@@ -9,7 +9,7 @@ Stages 1 and 2 contain the projects currently implemented in this repository. St
 ## Repository Structure
 
 ```text
-cloud-python/
+cloud-engineering-labs/
 ├── stage_1/
 │   ├── aws_naming/
 │   ├── ec2-audit/
