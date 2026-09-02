@@ -1,25 +1,15 @@
-# cloud-python
+# Cloud Engineering Labs
 
-Structured Python learning repository focused on Cloud Engineering, AWS automation, and infrastructure tooling.
+Hands-on labs for building practical skills across Cloud Engineering, Infrastructure Engineering, and Platform Engineering.
 
-This repository documents a progressive journey from Python fundamentals to real-world cloud automation and AWS-based development.
+This repository documents a progressive journey from focused scripts to reproducible, observable, and cost-aware cloud environments and systems. Python remains an important part of that journey: it is used for automation, auditing, validation, and operational tooling, but as one tool within a broader cloud engineering stack that also includes infrastructure as code, containers, CI/CD, networking, security, and observability.
 
-The projects are organized into stages covering:
-- Python scripting fundamentals
-- Infrastructure-oriented utilities
-- AWS automation concepts
-- Error handling and validation
-- JSON and file processing
-- Logging and operational tooling
-- Future boto3 and serverless workflows
-
----
+Stages 1 and 2 contain the projects currently implemented in this repository. Stages 3 through 8 describe the planned direction and do not represent completed deliverables.
 
 ## Repository Structure
 
 ```text
 cloud-python/
-│
 ├── stage_1/
 │   ├── aws_naming/
 │   ├── ec2-audit/
@@ -28,7 +18,6 @@ cloud-python/
 │   ├── env_inspector/
 │   ├── error_handler/
 │   └── file-io/
-│
 ├── stage_2/
 │   ├── boto3_setup/
 │   ├── ec2-manager/
@@ -38,112 +27,104 @@ cloud-python/
 │   ├── security-groups/
 │   ├── tagging-cleanup/
 │   └── utils/
-│
 ├── requirements.txt
 └── README.md
 ```
 
----
-
 ## Stage 1 — Core Python for Cloud Engineering
 
-Stage 1 focuses on building strong Python foundations applied to cloud and infrastructure scenarios.
+Stage 1 establishes Python foundations through cloud and infrastructure scenarios. The labs use simulated infrastructure data and local utilities to practice automation patterns before interacting with live cloud resources.
 
-| Project | Concepts Practiced |
+| Project | Focus |
 |---|---|
-| `aws_naming` | Functions, reusable naming utilities |
-| `ec2-audit` | Lists, loops, EC2 filtering |
-| `ec2-cost-report` | Dictionaries, cost calculation |
-| `ec2-tag-audit` | Tag validation and infrastructure auditing |
-| `env_inspector` | Environment variables, logging, JSON output |
-| `error_handler` | Exception handling and simulated AWS API errors |
-| `file-io` | JSON parsing and report generation |
-
----
+| [`aws_naming`](stage_1/aws_naming/) | Standardized AWS resource names, ARN construction, and input validation |
+| [`ec2-audit`](stage_1/ec2-audit/) | EC2 inventory simulation, state counts, and missing-tag detection |
+| [`ec2-cost-report`](stage_1/ec2-cost-report/) | EC2 cost calculation and formatted status reporting |
+| [`ec2-tag-audit`](stage_1/ec2-tag-audit/) | Infrastructure metadata inspection and tag compliance auditing |
+| [`env_inspector`](stage_1/env_inspector/) | Environment variables, reusable utilities, structured logging, and JSON output |
+| [`error_handler`](stage_1/error_handler/) | Input validation and handling of simulated AWS API failures |
+| [`file-io`](stage_1/file-io/) | JSON configuration, EC2 data filtering, and report generation |
 
 ## Stage 2 — AWS Automation with boto3
 
-Stage 2 focuses on real AWS interactions using the boto3 SDK, EC2 lifecycle management, S3 operations, and security group auditing.
+Stage 2 moves from simulated data to AWS API interactions with `boto3`. These labs cover resource lifecycle operations, security checks, governance, shared tooling, and cleanup practices. Some scripts can create, modify, or delete AWS resources and should be reviewed before use in a live account.
 
-| Project | Concepts Practiced |
+| Project | Focus |
 |---|---|
-| `boto3_setup` | boto3 installation and connectivity verification |
-| `ec2-manager` | EC2 lifecycle management, auditing, and automation |
-| `iam-automation` | IAM user and policy lifecycle (create, attach, detach, delete) |
-| `s3-automation` | S3 bucket operations and file management |
-| `secret-manager` | Secrets Manager CRUD — create, retrieve, update, and delete secrets |
-| `security-groups` | Security group auditing and open CIDR detection |
-| `tagging-cleanup` | Tag compliance auditing and automated termination of long-stopped dev instances |
-| `utils` | Shared EC2 utilities and logging configuration |
+| [`boto3_setup`](stage_2/boto3_setup/) | AWS credential and connectivity verification through STS |
+| [`ec2-manager`](stage_2/ec2-manager/) | EC2 lifecycle management, state filtering, and instance auditing |
+| [`iam-automation`](stage_2/iam-automation/) | IAM user and policy creation, attachment, detachment, and cleanup |
+| [`s3-automation`](stage_2/s3-automation/) | S3 bucket and object operations, bucket policies, and lifecycle rules |
+| [`secret-manager`](stage_2/secret-manager/) | AWS Secrets Manager create, retrieve, update, and delete workflows |
+| [`security-groups`](stage_2/security-groups/) | Inbound-rule auditing, open CIDR detection, and sensitive-port checks |
+| [`tagging-cleanup`](stage_2/tagging-cleanup/) | EC2 tag compliance and cleanup of long-stopped development instances |
+| [`utils`](stage_2/utils/) | Shared EC2 helpers and centralized logging configuration |
 
----
+## Current Technology and Engineering Focus
 
-## Technologies Used
-
-- Python 3.13
-- Python Virtual Environments (`venv`)
-- Git & GitHub
-- AWS CLI concepts
-- AWS Free Tier
-
----
-
-## Engineering Concepts Practiced
-
-- Modular code organization
-- Utility function design
-- Logging
-- Exception handling
-- Type hints
-- Input validation
-- JSON serialization
-- Environment variable management
-- Infrastructure-oriented scripting
-- Git branching and version control workflows
-
----
+- Python 3 and virtual environments
+- AWS and `boto3`
+- Automation and operational tooling
+- Resource lifecycle and cost awareness
+- Infrastructure auditing, tagging, and governance
+- IAM, secrets, networking security, and least-privilege concepts
+- Logging, exception handling, type hints, and input validation
+- Git and GitHub workflows
 
 ## Roadmap
 
-### Stage 1 — Core Python for Cloud Engineering
-- Python fundamentals
-- Infrastructure scripting
-- File handling
-- Logging and validation
+The following stages are planned labs. Their tools and infrastructure are not yet included in this repository.
 
-### Stage 2 — AWS Automation with boto3
-- EC2 automation
-- S3 operations
-- IAM user and policy management
-- Secrets Manager lifecycle
-- Tag compliance auditing and automated cleanup
-- Security group auditing
+### Stage 3 — Infrastructure as Code
 
-### Stage 3 — Serverless and Lambda
-- AWS Lambda
-- Event-driven workflows
-- API Gateway
-- Scheduled automation
-
-### Stage 4 — AI Agents on AWS
-- AI automation workflows
-- AWS-hosted agents
-- LLM integrations
-- Event orchestration
-
-### Stage 5 — CI/CD and Infrastructure as Code
-- GitHub Actions
 - Terraform
-- Docker
+- VPC, subnets, route tables, and Internet Gateway
+- EC2, Security Groups, IAM, and S3
+- Temporary labs using `terraform apply` and `terraform destroy`
+- Cost controls and resource lifecycle management
+
+### Stage 4 — Containers and Deployment
+
+- Docker and Docker Compose
+- Containerized FastAPI service
+- Reverse proxy, HTTPS, and health checks
+- Reproducible deployment to a VPS
+
+### Stage 5 — CI/CD
+
+- GitHub Actions
+- Linting, tests, and Docker image builds
 - Deployment pipelines
 
----
+### Stage 6 — Observability
+
+- Structured logs
+- Prometheus
+- Grafana
+- Loki
+- OpenTelemetry
+
+### Stage 7 — Serverless and Event-Driven AWS
+
+- Lambda
+- API Gateway
+- EventBridge
+- SQS and SNS
+
+### Stage 8 — Cloud Architecture Labs
+
+- Public and private subnets
+- Load Balancer and Auto Scaling
+- Managed databases
+- High availability
+- Security, resilience, and cost trade-offs
+
+## Next Labs
+
+1. Terraform AWS networking lab
+2. Dockerized FastAPI service with Prometheus and Grafana
+3. GitHub Actions CI pipeline
 
 ## Purpose
 
-This repository was created as a practical learning portfolio focused on:
-- Cloud Engineering
-- AWS Solutions Architecture
-- Python automation
-- Infrastructure tooling
-- Backend operational scripting
+The goal of this repository is to build and demonstrate practical cloud engineering judgment: automating repeatable work, designing infrastructure that can be reproduced and operated, adding visibility into system behavior, and understanding the security, resilience, and cost trade-offs behind technical decisions.
