@@ -43,19 +43,28 @@ Utility module for common Amazon S3 operations: creating buckets, uploading, lis
 
 ---
 
-## Billing note
+## Cost and security
 
-S3 Free Tier covers 5 GB storage, 20,000 GET requests, and 2,000 PUT requests per month.
-This script operates well within free tier limits. Delete the bucket after testing to avoid
-residual storage charges.
+S3 storage, requests, retrieval, and data transfer can generate charges; Free Tier eligibility and limits depend on the account and current AWS terms. The sample objects are small, but the bucket remains billable while objects remain. The sample policy denies insecure HTTP transport and does not make the bucket public.
+
+Use a globally unique lab bucket name, do not upload real sensitive data, and verify the active account before running. The example bucket name is hard-coded in `BUCKET` and the Region in `REGION` near the bottom of `s3_manager.py`.
 
 ---
 
 ## Usage
 
 ```bash
-python s3_manager.py
+PYTHONPATH=stage_2 python stage_2/s3-automation/s3_manager.py
 ```
+
+The script deletes only one sample object and deliberately leaves the bucket and another object for inspection. Clean them up after the lab:
+
+```bash
+aws s3 rm s3://YOUR-UNIQUE-LAB-BUCKET --recursive
+aws s3api delete-bucket --bucket YOUR-UNIQUE-LAB-BUCKET --region us-east-1
+```
+
+Confirm the bucket name before deletion. Bucket deletion is irreversible once objects are removed.
 
 ---
 

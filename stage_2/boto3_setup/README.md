@@ -19,8 +19,16 @@ Verifies that boto3 is installed and AWS credentials are correctly configured by
 
 ## Usage
 
+From the repository root:
+
 ```bash
-python boto3_setup_check.py
+python stage_2/boto3_setup/boto3_setup_check.py
+```
+
+The script uses the default boto3 credential chain and the session's configured Region. Set `AWS_PROFILE` and `AWS_DEFAULT_REGION` when you need to select a named profile and Region explicitly:
+
+```bash
+AWS_PROFILE=lab AWS_DEFAULT_REGION=us-east-1 python stage_2/boto3_setup/boto3_setup_check.py
 ```
 
 ## Example Output
@@ -38,3 +46,7 @@ Region: us-east-1
 |---|---|---|
 | `NoCredentialsError` | No credentials found | Logs error, returns `None` |
 | `ClientError` | AWS rejected the request | Logs error with details, returns `None` |
+
+## Cost, security, and cleanup
+
+`GetCallerIdentity` is read-only and this project creates no AWS resources, so no cleanup is required. The output includes an account ID and ARN; avoid publishing real output in screenshots or logs. Prefer short-lived credentials, SSO, or an IAM role over long-lived access keys, and never commit credential files.

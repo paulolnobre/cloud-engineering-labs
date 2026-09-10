@@ -5,10 +5,10 @@ Audits EC2 Security Groups using `boto3`, flagging inbound rules that expose sen
 ## Files
 
 ### `sg_auditor.py`
-Fetches all Security Groups in the account and audits their inbound rules, logging any rule that allows traffic from `0.0.0.0/0` or `::/0`, with an extra warning when the exposed port is critical (22, 3389, 3306).
+Fetches all Security Groups in the account and audits their inbound rules, logging any rule that allows traffic from `0.0.0.0/0` or `::/0`, with an extra warning when the exposed port is critical (22, 3389, 3306, 5432).
 
 ```bash
-python sg_auditor.py
+python stage_2/security-groups/sg_auditor.py
 ```
 
 | Function | Description |
@@ -20,7 +20,7 @@ python sg_auditor.py
 
 | Constant | Value | Description |
 |---|---|---|
-| `DANGEROUS_PORTS` | `{22, 3389, 3306}` | SSH, RDP, MySQL — trigger `[CRITICAL]` warning |
+| `DANGEROUS_PORTS` | `{22, 3389, 3306, 5432}` | SSH, RDP, MySQL, PostgreSQL — trigger `[CRITICAL]` warning |
 | `OPEN_CIDRS` | `{"0.0.0.0/0", "::/0"}` | IPv4 and IPv6 open ranges |
 
 **Log levels:**
@@ -37,3 +37,22 @@ python sg_auditor.py
 - Python 3.10+
 - `boto3`
 - AWS credentials configured (via `~/.aws/credentials`, environment variables, or IAM role)
+- IAM permission `ec2:DescribeSecurityGroups`
+
+## Configuration, cost, and security
+
+The executable example reads Security Groups from `us-east-1`. Set a lab profile explicitly if needed:
+
+```bash
+AWS_PROFILE=lab python stage_2/security-groups/sg_auditor.py
+```
+
+The auditor is read-only, creates no resources, and requires no cleanup. Its findings are signals for review rather than an automatic remediation policy: confirm attached resources and intended traffic before changing a Security Group.
+
+## Tests
+
+The unit suite exercises open-port detection without contacting AWS:
+
+```bash
+python -m pytest stage_2/tests -v
+```

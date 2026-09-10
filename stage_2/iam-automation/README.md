@@ -8,7 +8,7 @@ Manages the IAM user and policy lifecycle using `boto3`: create, attach, detach,
 Provides functions covering the full IAM lifecycle and a `__main__` block that runs a live end-to-end test.
 
 ```bash
-python iam_manager.py
+python stage_2/iam-automation/iam_manager.py
 ```
 
 | Function | Description |
@@ -45,3 +45,29 @@ Creates user `test-paulo-dev` and a minimal S3 read policy (`s3:GetObject`, `s3:
 - `boto3`
 - AWS credentials configured (via `~/.aws/credentials`, environment variables, or IAM role)
 - IAM permissions: `iam:CreateUser`, `iam:CreatePolicy`, `iam:AttachUserPolicy`, `iam:DetachUserPolicy`, `iam:DeletePolicy`, `iam:DeleteUser`
+
+## Configuration
+
+The executable example uses the constants `USER_NAME`, `POLICY_NAME`, and `POLICY_DOCUMENT` in `iam_manager.py`. Review the names and policy document before running. The sample policy permits only S3 read actions, but its `Resource: "*"` scope is intentionally simple for the lab and should be narrowed to specific bucket ARNs in production.
+
+IAM is global rather than regional. Select the intended AWS account with `AWS_PROFILE` and verify it before execution:
+
+```bash
+AWS_PROFILE=lab aws sts get-caller-identity
+AWS_PROFILE=lab python stage_2/iam-automation/iam_manager.py
+```
+
+## Cost, security, and cleanup
+
+IAM users and customer-managed policies do not normally create direct service charges, but mistakes can grant account-wide access. Use a sandbox account, least-privilege credentials, and never create access keys for the temporary user.
+
+The normal script flow detaches and removes the policy and user. If an API error interrupts the flow, inspect and remove leftovers in dependency order:
+
+```bash
+aws iam list-attached-user-policies --user-name test-paulo-dev
+aws iam detach-user-policy --user-name test-paulo-dev --policy-arn POLICY_ARN
+aws iam delete-policy --policy-arn POLICY_ARN
+aws iam delete-user --user-name test-paulo-dev
+```
+
+Confirm the user and policy names/ARN before deletion.

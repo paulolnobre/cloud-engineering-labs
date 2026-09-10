@@ -1,6 +1,5 @@
 import sys
 import pathlib
-import boto3
 from botocore.client import BaseClient
 from botocore.exceptions import ClientError
 
@@ -42,12 +41,13 @@ def audit_tags(instances: list) -> list:
         List of instance IDs missing required tags.
     """
     non_compliant_instances = []
-        for instance in instances:
-            instance_id = instance['InstanceId']
-            tags = {tag['Key']: tag['Value'] for tag in instance.get('Tags', [])}
-            if not all(tag in tags for tag in REQUIRED_TAGS):
-                non_compliant_instances.append(instance_id)
-                logger.warning("Instance %s is missing required tags", instance_id)
-        logger.info("Found %d non-compliant instances", len(non_compliant_instances))
-        return non_compliant_instances
-    
+    for instance in instances:
+        instance_id = instance['InstanceId']
+        tags = {tag['Key']: tag['Value'] for tag in instance.get('Tags', [])}
+        if not all(tag in tags for tag in REQUIRED_TAGS):
+            non_compliant_instances.append(instance_id)
+            logger.warning("[MISSING] %s is missing required tags", instance_id)
+        else:
+            logger.info("[OK] %s has all required tags", instance_id)
+    logger.info("Found %d non-compliant instances", len(non_compliant_instances))
+    return non_compliant_instances
