@@ -1,40 +1,13 @@
-"""Unit tests for Stage 2 governance and cleanup logic.
-
-The modules are loaded from their file paths because some lab directory names use
-hyphens and therefore are not importable as regular Python package names.
-"""
+"""Unit tests for Stage 2 governance and cleanup logic."""
 
 from __future__ import annotations
 
-import importlib.util
 import logging
-import sys
-from pathlib import Path
-from types import ModuleType
 from unittest.mock import MagicMock
 
 import pytest
-
-
-STAGE_2 = Path(__file__).resolve().parents[1]
-
-
-def load_module(name: str, relative_path: str) -> ModuleType:
-    """Load a Stage 2 script as a module without executing its main block."""
-    module_path = STAGE_2 / relative_path
-    spec = importlib.util.spec_from_file_location(name, module_path)
-    if spec is None or spec.loader is None:
-        raise ImportError(f"Could not load module from {module_path}")
-
-    module = importlib.util.module_from_spec(spec)
-    sys.modules[name] = module
-    spec.loader.exec_module(module)
-    return module
-
-
-tag_enforcer = load_module("stage2_tag_enforcer", "tagging-cleanup/tag_enforcer.py")
-cleanup = load_module("stage2_cleanup", "tagging-cleanup/cleanup.py")
-sg_auditor = load_module("stage2_sg_auditor", "security-groups/sg_auditor.py")
+from stage_2.security_groups import sg_auditor
+from stage_2.tagging_cleanup import cleanup, tag_enforcer
 
 
 def test_audit_tags_returns_only_non_compliant_instances() -> None:

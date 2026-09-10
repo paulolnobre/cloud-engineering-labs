@@ -1,4 +1,4 @@
-# secret-manager
+# secret_manager
 
 CRUD wrapper for AWS Secrets Manager using `boto3`. Stores and retrieves secrets as JSON-serialised dicts. Shared helpers live in `../utils/`.
 
@@ -8,7 +8,7 @@ CRUD wrapper for AWS Secrets Manager using `boto3`. Stores and retrieves secrets
 Provides four functions covering the full secret lifecycle (create, read, update, delete) and a `__main__` block that runs a live end-to-end test against `us-east-1`.
 
 ```bash
-python stage_2/secret-manager/secret_manager.py
+python -m stage_2.secret_manager.secret_manager
 ```
 
 | Function | Description |
@@ -43,7 +43,7 @@ The executable example uses `us-east-1` and the constants `SECRET_NAME`, `INITIA
 Choose the account/profile explicitly when needed:
 
 ```bash
-AWS_PROFILE=lab python stage_2/secret-manager/secret_manager.py
+AWS_PROFILE=lab python -m stage_2.secret_manager.secret_manager
 ```
 
 ## Cost, security, and cleanup

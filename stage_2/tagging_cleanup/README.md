@@ -1,4 +1,4 @@
-# tagging-cleanup
+# tagging_cleanup
 
 Audits EC2 tag compliance and terminates long-stopped instances using `boto3`. Shared helpers live in `../utils/`.
 
@@ -30,7 +30,7 @@ python -m pytest stage_2/tests -v
 Fetches stopped EC2 instances and terminates those that have been stopped longer than a configurable threshold.
 
 ```bash
-python stage_2/tagging-cleanup/cleanup.py
+python -m stage_2.tagging_cleanup.cleanup
 ```
 
 | Function | Description |

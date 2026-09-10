@@ -1,13 +1,10 @@
-import sys
 import json
-import pathlib
 
 import boto3
 from botocore.client import BaseClient
 from botocore.exceptions import ClientError
 
-sys.path.insert(0, str(pathlib.Path(__file__).parent.parent))
-from utils.logging_config import get_logger
+from stage_2.utils.logging_config import get_logger
 
 logger = get_logger(__name__)
 

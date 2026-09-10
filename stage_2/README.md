@@ -9,12 +9,12 @@ The emphasis is not the number of services covered. It is the engineering practi
 | Project | Demonstrated capability | Risk profile |
 |---|---|---|
 | [`boto3_setup`](boto3_setup/) | Credential and identity verification with STS | Read-only |
-| [`ec2-manager`](ec2-manager/) | EC2 inventory, audit, stop, launch, and optional termination | Can create, stop, or terminate EC2 |
-| [`iam-automation`](iam-automation/) | IAM user and managed-policy lifecycle | Changes account-level access control |
-| [`s3-automation`](s3-automation/) | Bucket, object, policy, and lifecycle operations | Creates stored data and policies |
-| [`secret-manager`](secret-manager/) | Secret lifecycle | Stores billable sensitive data |
-| [`security-groups`](security-groups/) | Detection of publicly exposed sensitive ports | Read-only |
-| [`tagging-cleanup`](tagging-cleanup/) | Tag compliance and guarded EC2 cleanup | Audit is read-only; cleanup can terminate EC2 |
+| [`ec2_manager`](ec2_manager/) | EC2 inventory, audit, stop, launch, and optional termination | Can create, stop, or terminate EC2 |
+| [`iam_automation`](iam_automation/) | IAM user and managed-policy lifecycle | Changes account-level access control |
+| [`s3_automation`](s3_automation/) | Bucket, object, policy, and lifecycle operations | Creates stored data and policies |
+| [`secret_manager`](secret_manager/) | Secret lifecycle | Stores billable sensitive data |
+| [`security_groups`](security_groups/) | Detection of publicly exposed sensitive ports | Read-only |
+| [`tagging_cleanup`](tagging_cleanup/) | Tag compliance and guarded EC2 cleanup | Audit is read-only; cleanup can terminate EC2 |
 | [`utils`](utils/) | Shared boto3 and logging helpers | Depends on the caller |
 
 Read each project README before execution. Use a sandbox account or dedicated lab profile, confirm the active account and Region, and keep destructive flags in their safe defaults until the target resources have been reviewed.

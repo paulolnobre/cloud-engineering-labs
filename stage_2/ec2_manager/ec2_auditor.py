@@ -1,8 +1,3 @@
-import sys
-from pathlib import Path
-
-sys.path.insert(0, str(Path(__file__).parent.parent))
-
 from datetime import datetime, timezone
 from typing import List, Dict, Any
 
@@ -10,8 +5,8 @@ import boto3
 from botocore.client import BaseClient
 from botocore.exceptions import ClientError
 
-import utils.ec2_utils as ec2_utils
-from utils.logging_config import get_logger
+import stage_2.utils.ec2_utils as ec2_utils
+from stage_2.utils.logging_config import get_logger
 
 logger = get_logger(__name__)
 

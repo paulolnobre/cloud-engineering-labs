@@ -1,4 +1,4 @@
-# iam-automation
+# iam_automation
 
 Manages the IAM user and policy lifecycle using `boto3`: create, attach, detach, and delete. Shared helpers live in `../utils/`.
 
@@ -8,7 +8,7 @@ Manages the IAM user and policy lifecycle using `boto3`: create, attach, detach,
 Provides functions covering the full IAM lifecycle and a `__main__` block that runs a live end-to-end test.
 
 ```bash
-python stage_2/iam-automation/iam_manager.py
+python -m stage_2.iam_automation.iam_manager
 ```
 
 | Function | Description |
@@ -54,7 +54,7 @@ IAM is global rather than regional. Select the intended AWS account with `AWS_PR
 
 ```bash
 AWS_PROFILE=lab aws sts get-caller-identity
-AWS_PROFILE=lab python stage_2/iam-automation/iam_manager.py
+AWS_PROFILE=lab python -m stage_2.iam_automation.iam_manager
 ```
 
 ## Cost, security, and cleanup

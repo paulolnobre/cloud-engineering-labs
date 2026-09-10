@@ -20,12 +20,12 @@ cloud-engineering-labs/
 │   └── file-io/
 ├── stage_2/
 │   ├── boto3_setup/
-│   ├── ec2-manager/
-│   ├── iam-automation/
-│   ├── s3-automation/
-│   ├── secret-manager/
-│   ├── security-groups/
-│   ├── tagging-cleanup/
+│   ├── ec2_manager/
+│   ├── iam_automation/
+│   ├── s3_automation/
+│   ├── secret_manager/
+│   ├── security_groups/
+│   ├── tagging_cleanup/
 │   └── utils/
 ├── stage_3/
 │   └── terraform-aws-networking-lab/
@@ -54,12 +54,12 @@ Stage 2 moves from simulated data to AWS API interactions with `boto3`. These la
 | Project | Focus |
 |---|---|
 | [`boto3_setup`](stage_2/boto3_setup/) | AWS credential and connectivity verification through STS |
-| [`ec2-manager`](stage_2/ec2-manager/) | EC2 lifecycle management, state filtering, and instance auditing |
-| [`iam-automation`](stage_2/iam-automation/) | IAM user and policy creation, attachment, detachment, and cleanup |
-| [`s3-automation`](stage_2/s3-automation/) | S3 bucket and object operations, bucket policies, and lifecycle rules |
-| [`secret-manager`](stage_2/secret-manager/) | AWS Secrets Manager create, retrieve, update, and delete workflows |
-| [`security-groups`](stage_2/security-groups/) | Inbound-rule auditing, open CIDR detection, and sensitive-port checks |
-| [`tagging-cleanup`](stage_2/tagging-cleanup/) | EC2 tag compliance and cleanup of long-stopped development instances |
+| [`ec2_manager`](stage_2/ec2_manager/) | EC2 lifecycle management, state filtering, and instance auditing |
+| [`iam_automation`](stage_2/iam_automation/) | IAM user and policy creation, attachment, detachment, and cleanup |
+| [`s3_automation`](stage_2/s3_automation/) | S3 bucket and object operations, bucket policies, and lifecycle rules |
+| [`secret_manager`](stage_2/secret_manager/) | AWS Secrets Manager create, retrieve, update, and delete workflows |
+| [`security_groups`](stage_2/security_groups/) | Inbound-rule auditing, open CIDR detection, and sensitive-port checks |
+| [`tagging_cleanup`](stage_2/tagging_cleanup/) | EC2 tag compliance and cleanup of long-stopped development instances |
 | [`utils`](stage_2/utils/) | Shared EC2 helpers and centralized logging configuration |
 
 Stage 2 is now considered complete. See the [Stage 2 completion summary](stage_2/) for its scope, safety profile, focused unit-test command, and transition to declarative infrastructure.

@@ -22,13 +22,13 @@ Verifies that boto3 is installed and AWS credentials are correctly configured by
 From the repository root:
 
 ```bash
-python stage_2/boto3_setup/boto3_setup_check.py
+python -m stage_2.boto3_setup.boto3_setup_check
 ```
 
 The script uses the default boto3 credential chain and the session's configured Region. Set `AWS_PROFILE` and `AWS_DEFAULT_REGION` when you need to select a named profile and Region explicitly:
 
 ```bash
-AWS_PROFILE=lab AWS_DEFAULT_REGION=us-east-1 python stage_2/boto3_setup/boto3_setup_check.py
+AWS_PROFILE=lab AWS_DEFAULT_REGION=us-east-1 python -m stage_2.boto3_setup.boto3_setup_check
 ```
 
 ## Example Output

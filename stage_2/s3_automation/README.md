@@ -54,7 +54,7 @@ Use a globally unique lab bucket name, do not upload real sensitive data, and ve
 ## Usage
 
 ```bash
-PYTHONPATH=stage_2 python stage_2/s3-automation/s3_manager.py
+python -m stage_2.s3_automation.s3_manager
 ```
 
 The script deletes only one sample object and deliberately leaves the bucket and another object for inspection. Clean them up after the lab:

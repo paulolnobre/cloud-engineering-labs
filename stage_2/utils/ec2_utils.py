@@ -1,7 +1,7 @@
 from botocore.client import BaseClient
 from botocore.exceptions import ClientError
 
-from utils.logging_config import get_logger
+from stage_2.utils.logging_config import get_logger
 
 logger = get_logger(__name__)
 

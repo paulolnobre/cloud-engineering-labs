@@ -1,4 +1,4 @@
-# ec2-manager
+# ec2_manager
 
 Modules for managing and auditing EC2 instances using `boto3`. Shared helpers live in `../utils/`.
 
@@ -8,7 +8,7 @@ Modules for managing and auditing EC2 instances using `boto3`. Shared helpers li
 Queries running instances, logs their ID and Name tag, and stops the first one found (test mode).
 
 ```bash
-PYTHONPATH=stage_2 python stage_2/ec2-manager/ec2_manager.py
+python -m stage_2.ec2_manager.ec2_manager
 ```
 
 | Function | Description |
@@ -22,7 +22,7 @@ PYTHONPATH=stage_2 python stage_2/ec2-manager/ec2_manager.py
 Full instance lifecycle: launch → wait → log → stop → terminate (optional).
 
 ```bash
-PYTHONPATH=stage_2 python stage_2/ec2-manager/ec2_lifecycle.py
+python -m stage_2.ec2_manager.ec2_lifecycle
 ```
 
 | Function | Description |
@@ -46,7 +46,7 @@ PYTHONPATH=stage_2 python stage_2/ec2-manager/ec2_lifecycle.py
 Audits all running and stopped instances, flagging any missing `Name` or `Environment` tags.
 
 ```bash
-PYTHONPATH=stage_2 python stage_2/ec2-manager/ec2_auditor.py
+python -m stage_2.ec2_manager.ec2_auditor
 ```
 
 | Function | Description |

@@ -3,7 +3,7 @@ import json
 import boto3
 from botocore.exceptions import ClientError
 
-from utils.logging_config import get_logger
+from stage_2.utils.logging_config import get_logger
 
 logger = get_logger(__name__)
 
@@ -184,7 +184,6 @@ if __name__ == "__main__":
     set_lifecycle_rule(BUCKET, rule_id="expire-reports", prefix="reports/", expiration_days=90)
 
   
-
 
 
 

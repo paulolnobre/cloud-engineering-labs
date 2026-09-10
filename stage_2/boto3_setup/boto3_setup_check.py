@@ -1,12 +1,9 @@
-import sys
 import os
-
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), ".."))
 
 import boto3
 from botocore.exceptions import NoCredentialsError, ClientError
 
-from utils.logging_config import get_logger
+from stage_2.utils.logging_config import get_logger
 
 logger = get_logger(__name__)
 

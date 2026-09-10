@@ -1,12 +1,9 @@
-import sys
-import pathlib
 import boto3
 from botocore.client import BaseClient
 from botocore.exceptions import ClientError
 from datetime import datetime, timezone
 
-sys.path.insert(0, str(pathlib.Path(__file__).parent.parent))
-from utils.logging_config import get_logger
+from stage_2.utils.logging_config import get_logger
 
 logger = get_logger(__name__)
 
@@ -95,4 +92,3 @@ if __name__ == "__main__":
             terminate_instance(client, instance_id, dry_run=DRY_RUN)
         else:
             logger.info("Skipping %s — only stopped for %d day(s)", instance_id, age)
-

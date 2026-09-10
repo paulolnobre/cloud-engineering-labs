@@ -1,4 +1,4 @@
-# security-groups
+# security_groups
 
 Audits EC2 Security Groups using `boto3`, flagging inbound rules that expose sensitive ports to open CIDRs. Shared helpers live in `../utils/`.
 
@@ -8,7 +8,7 @@ Audits EC2 Security Groups using `boto3`, flagging inbound rules that expose sen
 Fetches all Security Groups in the account and audits their inbound rules, logging any rule that allows traffic from `0.0.0.0/0` or `::/0`, with an extra warning when the exposed port is critical (22, 3389, 3306, 5432).
 
 ```bash
-python stage_2/security-groups/sg_auditor.py
+python -m stage_2.security_groups.sg_auditor
 ```
 
 | Function | Description |
@@ -44,7 +44,7 @@ python stage_2/security-groups/sg_auditor.py
 The executable example reads Security Groups from `us-east-1`. Set a lab profile explicitly if needed:
 
 ```bash
-AWS_PROFILE=lab python stage_2/security-groups/sg_auditor.py
+AWS_PROFILE=lab python -m stage_2.security_groups.sg_auditor
 ```
 
 The auditor is read-only, creates no resources, and requires no cleanup. Its findings are signals for review rather than an automatic remediation policy: confirm attached resources and intended traffic before changing a Security Group.

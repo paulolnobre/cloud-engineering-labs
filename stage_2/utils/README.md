@@ -1,6 +1,6 @@
 # utils
 
-Shared utilities used across `stage_2` modules. Imported as a package via `from utils.<module> import ...`.
+Shared utilities used across `stage_2` modules. Imported as a package via `from stage_2.utils.<module> import ...`.
 
 ## Files
 
@@ -25,7 +25,7 @@ Centralised logging setup — ensures `basicConfig` is only called once regardle
 
 **Usage:**
 ```python
-from utils.logging_config import get_logger
+from stage_2.utils.logging_config import get_logger
 
 logger = get_logger(__name__)
 ```
@@ -39,7 +39,7 @@ logger = get_logger(__name__)
 Example from the repository root:
 
 ```bash
-PYTHONPATH=stage_2 python stage_2/ec2-manager/ec2_manager.py
+python -m stage_2.ec2_manager.ec2_manager
 ```
 
 The utilities do not select an account or Region; they use the boto3 client passed by each calling project. `logging_config.py` writes to standard output at `INFO` level by default.
