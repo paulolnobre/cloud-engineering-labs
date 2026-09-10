@@ -4,7 +4,7 @@ Hands-on labs for building practical skills across Cloud Engineering, Infrastruc
 
 This repository documents a progressive journey from focused scripts to reproducible, observable, and cost-aware cloud environments and systems. Python remains an important part of that journey: it is used for automation, auditing, validation, and operational tooling, but as one tool within a broader cloud engineering stack that also includes infrastructure as code, containers, CI/CD, networking, security, and observability.
 
-Stages 1 and 2 contain the projects currently implemented in this repository. Stages 3 through 8 describe the planned direction and do not represent completed deliverables.
+Stages 1 and 2 contain the Python and boto3 foundations. Stage 3 has started with the first Terraform networking lab; Stages 4 through 8 remain planned directions.
 
 ## Repository Structure
 
@@ -27,6 +27,8 @@ cloud-engineering-labs/
 │   ├── security-groups/
 │   ├── tagging-cleanup/
 │   └── utils/
+├── stage_3/
+│   └── terraform-aws-networking-lab/
 ├── requirements.txt
 └── README.md
 ```
@@ -60,6 +62,16 @@ Stage 2 moves from simulated data to AWS API interactions with `boto3`. These la
 | [`tagging-cleanup`](stage_2/tagging-cleanup/) | EC2 tag compliance and cleanup of long-stopped development instances |
 | [`utils`](stage_2/utils/) | Shared EC2 helpers and centralized logging configuration |
 
+Stage 2 is now considered complete. See the [Stage 2 completion summary](stage_2/) for its scope, safety profile, focused unit-test command, and transition to declarative infrastructure.
+
+## Stage 3 — Infrastructure as Code
+
+Stage 3 begins the move from imperative API automation to declarative, reviewable, and reproducible infrastructure.
+
+| Project | Focus |
+|---|---|
+| [`terraform-aws-networking-lab`](stage_3/terraform-aws-networking-lab/) | VPC, public subnet, Internet Gateway, routing, minimal Security Group, EC2, standardized tags, outputs, and destroy workflow |
+
 ## Current Technology and Engineering Focus
 
 - Python 3 and virtual environments
@@ -74,14 +86,6 @@ Stage 2 moves from simulated data to AWS API interactions with `boto3`. These la
 ## Roadmap
 
 The following stages are planned labs. Their tools and infrastructure are not yet included in this repository.
-
-### Stage 3 — Infrastructure as Code
-
-- Terraform
-- VPC, subnets, route tables, and Internet Gateway
-- EC2, Security Groups, IAM, and S3
-- Temporary labs using `terraform apply` and `terraform destroy`
-- Cost controls and resource lifecycle management
 
 ### Stage 4 — Containers and Deployment
 
@@ -121,7 +125,7 @@ The following stages are planned labs. Their tools and infrastructure are not ye
 
 ## Next Labs
 
-1. Terraform AWS networking lab
+1. Extend Terraform practices with remote state and modular composition
 2. Dockerized FastAPI service with Prometheus and Grafana
 3. GitHub Actions CI pipeline
 
