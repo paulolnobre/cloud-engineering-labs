@@ -104,3 +104,18 @@ def test_restricted_rule_is_reported_as_ok(
 
     assert any("[OK]" in record.message for record in caplog.records)
     assert not any("[CRITICAL]" in record.message for record in caplog.records)
+
+
+def test_cleanup_does_not_use_launch_time_as_stop_time() -> None:
+    from datetime import datetime, timezone
+
+    instance = {"InstanceId": "i-old", "LaunchTime": datetime(2020, 1, 1, tzinfo=timezone.utc)}
+    assert cleanup.get_instance_age(instance) is None
+
+
+def test_cleanup_reads_actual_stop_timestamp() -> None:
+    from datetime import datetime, timedelta, timezone
+
+    stopped_at = datetime.now(timezone.utc) - timedelta(days=9)
+    instance = {"StateTransitionReason": stopped_at.strftime("User initiated (%Y-%m-%d %H:%M:%S GMT)")}
+    assert cleanup.get_instance_age(instance) == 9

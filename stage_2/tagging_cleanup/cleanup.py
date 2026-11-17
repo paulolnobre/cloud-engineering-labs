@@ -32,20 +32,20 @@ def get_stopped_instances(client: BaseClient) -> list[dict]:
         return []
 
 
-def get_instance_age(instance: dict) -> int:
-    """Try StateTransitionReason first, fall back to LaunchTime."""
+def get_instance_age(instance: dict) -> int | None:
+    """Return full days since the recorded stop, or None if it is unknown."""
     reason = instance.get("StateTransitionReason", "")
     if "(" in reason and ")" in reason:
         try:
-            date_str = reason.split("(")[1].split(")")[0].split(" ")[0]
-            stopped_at = datetime.strptime(date_str, "%Y-%m-%d").replace(tzinfo=timezone.utc)
-            return (datetime.now(timezone.utc) - stopped_at).days
+            date_str = reason.split("(")[1].split(")")[0]
+            stopped_at = datetime.strptime(date_str, "%Y-%m-%d %H:%M:%S %Z").replace(tzinfo=timezone.utc)
+            age = (datetime.now(timezone.utc) - stopped_at).days
+            if age >= 0:
+                return age
         except (IndexError, ValueError):
-            logger.warning("Could not parse StateTransitionReason for %s, falling back to LaunchTime", instance.get("InstanceId"))
-    launch_time = instance.get("LaunchTime")
-    if launch_time is None:
-        return 0
-    return (datetime.now(timezone.utc) - launch_time).days
+            pass
+    logger.warning("Cannot establish stop time for %s; skipping cleanup", instance.get("InstanceId"))
+    return None
 
 
 def terminate_instance(
@@ -82,7 +82,10 @@ if __name__ == "__main__":
         tags = {tag["Key"]: tag["Value"] for tag in instance.get("Tags", [])}
         age = get_instance_age(instance)
 
-        logger.info("Instance %s | age=%d day(s) | env=%s", instance_id, age, tags.get("Environment", "N/A"))
+        logger.info("Instance %s | stopped days=%s | env=%s", instance_id, age, tags.get("Environment", "N/A"))
+
+        if age is None:
+            continue
 
         if tags.get("Environment") != "dev":
             logger.info("Skipping %s — not a dev instance", instance_id)

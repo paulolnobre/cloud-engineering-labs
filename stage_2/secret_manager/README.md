@@ -27,7 +27,7 @@ python -m stage_2.secret_manager.secret_manager
 
 **`__main__` lifecycle test:**
 
-Creates `test/converge/db` with initial credentials, retrieves and logs it, updates the password, retrieves again, then force-deletes the secret. Any `ClientError` is caught and logged without re-raising.
+Creates `test/converge/db` with initial credentials, retrieves it without logging its value, updates the password, retrieves again, then force-deletes the secret. Any `ClientError` is caught and logged without re-raising.
 
 ## Requirements
 
@@ -48,7 +48,7 @@ AWS_PROFILE=lab python -m stage_2.secret_manager.secret_manager
 
 ## Cost, security, and cleanup
 
-Secrets Manager charges for stored secrets and API operations under current AWS pricing. The example logs the retrieved sample value and therefore must not be reused for real secrets.
+Secrets Manager charges for stored secrets and API operations under current AWS pricing. The example does not log retrieved secret values. Use disposable values and avoid placing real secrets in source code or logs.
 
 The normal flow force-deletes the test secret to avoid leaving it billable. If the script stops before cleanup, remove the disposable secret explicitly:
 

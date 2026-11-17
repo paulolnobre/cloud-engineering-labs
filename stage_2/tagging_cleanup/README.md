@@ -36,7 +36,7 @@ python -m stage_2.tagging_cleanup.cleanup
 | Function | Description |
 |---|---|
 | `get_stopped_instances(client)` | Paginates all instances in `stopped` state and returns them |
-| `get_instance_age(instance)` | Estimates age from `StateTransitionReason`, falls back to `LaunchTime`, and returns `0` when neither is usable |
+| `get_instance_age(instance)` | Returns the number of days since the recorded stop, or `None` when the stop time cannot be established |
 | `terminate_instance(client, instance_id)` | Terminates a single instance by ID |
 
 **`__main__` flow:**
@@ -46,7 +46,7 @@ get_stopped_instances
         ↓
   for each instance
         ↓
-  get_instance_age  ──→  age < MAX_STOPPED_DAYS  →  skip
+  get_instance_age  ──→  unknown or below threshold  →  skip
         ↓
   age >= MAX_STOPPED_DAYS
         ↓
@@ -69,7 +69,7 @@ get_stopped_instances
 
 ## Configuration, cost, and safety
 
-`tag_enforcer.py` checks `Name`, `Environment`, and `Owner` using the boto3 client supplied by its caller. The executable cleanup example targets `us-east-1`, considers only stopped instances tagged `Environment=dev`, uses `MAX_STOPPED_DAYS`, and defaults to `DRY_RUN = True`.
+`tag_enforcer.py` checks `Name`, `Environment`, and `Owner` using the boto3 client supplied by its caller. The executable cleanup example targets `us-east-1`, considers only stopped instances tagged `Environment=dev`, uses `MAX_STOPPED_DAYS`, skips instances whose stop time is unknown, and defaults to `DRY_RUN = True`. Instance launch time is not evidence of how long it has been stopped.
 
 Run cleanup once in dry-run mode, review every instance ID, its tags, and its data, and only then consider setting `DRY_RUN = False`. EC2 termination is irreversible and attached EBS volumes marked for deletion can be lost. Stopped EC2 instances can still incur EBS and other attached-resource charges.
 

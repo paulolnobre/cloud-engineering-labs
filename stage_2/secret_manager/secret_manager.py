@@ -106,15 +106,15 @@ if __name__ == "__main__":
         create_secret(client, SECRET_NAME, INITIAL_VALUE)
 
         logger.info("--- GET ---")
-        secret = get_secret(client, SECRET_NAME)
-        logger.info("Value: %s", secret)
+        get_secret(client, SECRET_NAME)
+        logger.info("Secret retrieved; value omitted from logs")
 
         logger.info("--- UPDATE ---")
         update_secret(client, SECRET_NAME, UPDATED_VALUE)
 
         logger.info("--- GET (after update) ---")
-        updated = get_secret(client, SECRET_NAME)
-        logger.info("Value: %s", updated)
+        get_secret(client, SECRET_NAME)
+        logger.info("Updated secret retrieved; value omitted from logs")
 
         logger.info("--- DELETE (force=True to avoid billing) ---")
         delete_secret(client, SECRET_NAME, force=True)
