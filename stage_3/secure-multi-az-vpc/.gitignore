@@ -1,0 +1,12 @@
+# Local instructions and Terraform working data must stay private.
+.agent
+.agents/
+.codex/
+.aws/
+.terraform/
+*.tfstate
+*.tfstate.*
+*.tfplan
+*.tfplan.*
+crash.log
+crash.*.log
